@@ -1,0 +1,10 @@
+{
+    "name": "gdm/crm-prototype",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Gdm\\CrmPrototype\\": "src/"
+        }
+    },
+    "require": {}
+}
