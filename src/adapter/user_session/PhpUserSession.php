@@ -1,5 +1,7 @@
 <?php
 
+namespace src\adapter\user_session;
+
 use src\adapter\user_repository\UserRepositoryInterface;
 use src\adapter\user_session\UserSessionInterface;
 use src\entity\User;
