@@ -7,7 +7,8 @@ use src\adapter\user_session\UserSessionInterface;
 use src\entity\Feedback;
 use src\entity\FeedbackStatus;
 
-class FeedbackService {
+class FeedbackService
+{
     private FeedbackRepositoryInterface $feedback;
     private UserSessionInterface $session;
 
@@ -17,11 +18,13 @@ class FeedbackService {
         $this->session = $session;
     }
 
-    public function addFeedback(Feedback $feedback) {
+    public function addFeedback(Feedback $feedback)
+    {
         $this->feedback->insert($feedback);
     }
 
-    public function markFeedbackAsResolved(int $id) {
+    public function markFeedbackAsResolved(int $id)
+    {
         if ($this->session->getCurrentUser() == null) return;
 
         $selected_feedback = $this->feedback->getById($id);
@@ -30,7 +33,8 @@ class FeedbackService {
         $this->feedback->update($selected_feedback);
     }
 
-    public function setPIC(int $id, string $PIC) {
+    public function setPIC(int $id, string $PIC)
+    {
         if ($this->session->getCurrentUser() == null) return;
 
         $selected_feedback = $this->feedback->getById($id);
@@ -39,7 +43,8 @@ class FeedbackService {
         $this->feedback->update($selected_feedback);
     }
 
-    public function getFeedbackData() {
+    public function getFeedbackData()
+    {
         if ($this->session->getCurrentUser() == null) return [];
 
         return $this->feedback->getAll();
