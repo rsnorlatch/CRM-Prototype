@@ -3,38 +3,42 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use PHPUnit\Framework\TestCase;
-use src\adapter\FakeUserRepository;
+use src\adapter\user_repository\FakeUserRepository;
+use src\adapter\user_session\FakeUserSession;
 use src\service\AuthService;
 
 final class RegisterTest extends TestCase
 {
+    private FakeUserRepository $user_repo;
+    private FakeUserSession $session;
+
+    private AuthService $service;
+
+    protected function setUp(): void {
+        $this->user_repo = new FakeUserRepository();
+        $this->session = new FakeUserSession();
+
+        $this->service = new AuthService($this->user_repo, $this->session);
+    }
+
     public function testWhenProvidingEmptyString_ShouldNotCreateAccount()
     {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->register("", "", "");
 
-        $service->register("", "", "");
-
-        $this->assertEmpty($repo->getAll());
+        $this->assertEmpty($this->user_repo->getAll());
     }
 
     public function testWhenProvidingData_ShouldCreateAccount()
     {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->register("ftom", "phigros", "phigros");
 
-        $service->register("ftom", "phigros", "phigros");
-
-        $this->assertNotEmpty($repo->getAll());
+        $this->assertNotEmpty($this->user_repo->getAll());
     }
 
     public function testWhenPasswordDoNotMatch_ShouldNotCreateAccount()
     {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->register("ftom", "phigros", "lanota");
 
-        $service->register("ftom", "phigros", "lanota");
-
-        $this->assertEmpty($repo->getAll());
+        $this->assertEmpty($this->user_repo->getAll());
     }
 }

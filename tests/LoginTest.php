@@ -1,36 +1,40 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use src\adapter\FakeUserRepository;
+use src\adapter\user_repository\FakeUserRepository;
+use src\adapter\user_session\FakeUserSession;
 use src\service\AuthService;
 
 class LoginTest extends TestCase {
+    private FakeUserRepository $user_repo;
+    private FakeUserSession $session;
+
+    private AuthService $service;
+
+    protected function setUp(): void {
+        $this->user_repo = new FakeUserRepository();
+        $this->session = new FakeUserSession();
+
+        $this->service = new AuthService($this->user_repo, $this->session);
+    }
+    
     public function testWhenNotProvidingAnyCredential_ShouldNotLogin() {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->login("", "");
 
-        $service->login("", "");
-
-        $this->assertNull($service->current_user);
+        $this->assertNull($this->session->getCurrentUser());
     }
 
     public function testWhenProvidingCorrectCredential_ShouldLogin() {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->register("ftom", "phigros", "phigros");
+        $this->service->login("ftom", "phigros");
 
-        $service->register("ftom", "phigros", "phigros");
-        $service->login("ftom", "phigros");
-
-        $this->assertNotNull($service->current_user);
+        $this->assertNotNull($this->session->getCurrentUser());
     }
 
     public function testWhenProvidingIncorrectCredential_ShouldNotLogin() {
-        $repo = new FakeUserRepository();
-        $service = new AuthService($repo);
+        $this->service->register("ftom", "phigros", "phigros");
+        $this->service->login("ftom", "phira");
 
-        $service->register("ftom", "phigros", "phigros");
-        $service->login("ftom", "phira");
-
-        $this->assertNull($service->current_user);
+        $this->assertNull($this->session->getCurrentUser());
     }
 }

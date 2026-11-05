@@ -1,10 +1,10 @@
 <?php
 
-namespace src\adapter;
+namespace src\adapter\user_repository;
 
 use src\entity\User;
 
-class FakeUserRepository {
+class FakeUserRepository implements UserRepositoryInterface {
     private array $users;    
 
     public function __construct()
