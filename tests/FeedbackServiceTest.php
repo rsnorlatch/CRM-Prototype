@@ -75,4 +75,23 @@ class FeedbackServiceTest extends TestCase
 
         $this->assertSame("idk someone", $current_feedback->person_in_charge);
     }
+
+    public function testWhenUserIsNotLoggedInAndTryToViewFeedback_ShouldNotProvideFeedback() {
+        $this->service->addFeedback(new Feedback("feedback1", FeedbackType::Complaint));
+
+        $this->session->logout();
+
+        $feedbacks = $this->service->getFeedbackData();
+
+        $this->assertSame([], $feedbacks);
+    }
+
+    public function testWhenUserIsLoggedInAndTryToViewFeedback_ShouldProvideFeedback() {
+        $feedback = new Feedback("feedback1", FeedbackType::Complaint);
+        $this->service->addFeedback($feedback);
+
+        $feedbacks = $this->service->getFeedbackData();
+
+        $this->assertSame([$feedback], $feedbacks);
+    }
 }

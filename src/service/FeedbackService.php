@@ -38,4 +38,10 @@ class FeedbackService {
 
         $this->feedback->update($selected_feedback);
     }
+
+    public function getFeedbackData() {
+        if ($this->session->getCurrentUser() == null) return [];
+
+        return $this->feedback->getAll();
+    }
 }
