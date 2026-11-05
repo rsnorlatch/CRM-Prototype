@@ -2,17 +2,16 @@
 
 namespace src\service;
 
-use src\adapter\feedback_repository\FakeFeedbackRepository;
+use src\adapter\feedback_repository\FeedbackRepositoryInterface;
 use src\adapter\user_session\UserSessionInterface;
 use src\entity\Feedback;
 use src\entity\FeedbackStatus;
-use src\entity\FeedbackType;
 
 class FeedbackService {
-    private FakeFeedbackRepository $feedback;
+    private FeedbackRepositoryInterface $feedback;
     private UserSessionInterface $session;
 
-    public function __construct(FakeFeedbackRepository $feedback, UserSessionInterface $session)
+    public function __construct(FeedbackRepositoryInterface $feedback, UserSessionInterface $session)
     {
         $this->feedback = $feedback;
         $this->session = $session;

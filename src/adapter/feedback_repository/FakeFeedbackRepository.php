@@ -4,7 +4,7 @@ namespace src\adapter\feedback_repository;
 
 use src\entity\Feedback;
 
-class FakeFeedbackRepository {
+class FakeFeedbackRepository implements FeedbackRepositoryInterface {
     private array $feedbacks;
 
     public function __construct()
