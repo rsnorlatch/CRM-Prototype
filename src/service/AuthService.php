@@ -2,16 +2,16 @@
 
 namespace src\service;
 
-use src\adapter\user_repository\FakeUserRepository;
-use src\adapter\user_session\FakeUserSession;
+use src\adapter\user_repository\UserRepositoryInterface;
+use src\adapter\user_session\UserSessionInterface;
 use src\entity\User;
 
 class AuthService
 {
-    private FakeUserRepository $user;
-    private FakeUserSession $session;
+    private UserRepositoryInterface $user;
+    private UserSessionInterface $session;
 
-    public function __construct(FakeUserRepository $user_repo, FakeUserSession $user_session) {
+    public function __construct(UserRepositoryInterface $user_repo, UserSessionInterface $user_session) {
         $this->user = $user_repo;
         $this->session = $user_session;
     }
