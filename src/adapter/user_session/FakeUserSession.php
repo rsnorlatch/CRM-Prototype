@@ -19,4 +19,8 @@ class FakeUserSession implements UserSessionInterface {
     public function setCurrentUser(User $current_user) {
         $this->current_user = $current_user;
     }
+
+    public function logout() {
+        $this->current_user = null;
+    }
 }
