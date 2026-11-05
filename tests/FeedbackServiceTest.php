@@ -53,4 +53,26 @@ class FeedbackServiceTest extends TestCase
 
         $this->assertSame(FeedbackStatus::Pending, $current_feedback->status);
     }
+
+    public function testWhenUserIsNotLoggedInAndTryToSetPIC_ShouldNotSetPIC() {
+        $this->service->addFeedback(new Feedback("feedback1", FeedbackType::Complaint)->withId(1));
+
+        $this->session->logout();
+
+        $this->service->setPIC(1, "some franchise");
+
+        $current_feedback = $this->feedback->getById(1);
+
+        $this->assertSame(null, $current_feedback->person_in_charge);
+    }
+
+    public function testWhenUserIsLoggedInAndTryToSetPIC_SHoudlSetPIC() {
+        $this->service->addFeedback(new Feedback("feedback1", FeedbackType::Complaint)->withId(1));
+
+        $this->service->setPIC(1, "idk someone");
+
+        $current_feedback = $this->feedback->getById(1);
+
+        $this->assertSame("idk someone", $current_feedback->person_in_charge);
+    }
 }
