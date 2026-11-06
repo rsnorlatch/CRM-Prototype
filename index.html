@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2457ff">
+    <title>SUNA — Hub Pelanggan</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="SUNA beranda">
+        <img class="brand-logo" src="src/assets/images/logo-suna.png" alt="">
+        <span>SUNA<span class="brand-sub">SUSU SARJANA</span></span>
+      </a>
+      <nav id="main-nav" class="main-nav" aria-label="Navigasi utama">
+        <button class="nav-link active" data-view="home">Dashboard</button>
+        <a class="nav-link" href="src/katalog.php">Katalog Menu</a>
+        <button class="nav-link" data-view="preorder">Pre-Order</button>
+        <button class="nav-link" data-view="orders" hidden>Pesanan</button>
+        <button class="nav-link" data-view="broadcast">Broadcast Promosi</button>
+        <a class="nav-link" href="src/pelanggan.php">Data Pelanggan</a>
+        <a class="nav-link" href="src/keluhan_admin.php">Keluhan &amp; Saran</a>
+      </nav>
+      <div class="account-actions">
+        <span id="account-label" class="account-label">Belum masuk</span>
+        <button id="logout-button" class="button button-outline button-small" hidden>Keluar</button>
+        <button id="login-shortcut" class="button button-dark button-small">Masuk</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="home-view" class="view">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> CRM & LAYANAN PELANGGAN SUNA</p>
+            <h1>Pesan lebih awal.<br><em>Nikmati tanpa antre.</em></h1>
+            <p class="hero-description">Temukan menu SUNA, atur waktu pengambilan, dan pantau pesanan dalam satu tempat.</p>
+            <div class="hero-actions">
+              <button id="hero-order-button" class="button button-light">Buat pre-order <span aria-hidden="true">↗</span></button>
+              <button id="hero-login-button" class="button button-ghost">Masuk / daftar</button>
+            </div>
+            <div class="hero-meta"><span class="meta-line"></span> Layanan pelanggan SUNA · Data demo</div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="sun-disc"></div>
+            <div class="cup">
+              <div class="cup-lid"></div>
+              <div class="cup-body"><span>SUNA</span><i></i></div>
+              <div class="cup-shadow"></div>
+            </div>
+            <span class="art-label label-one">DIBUAT UNTUKMU</span>
+            <span class="art-label label-two">01 — SUNA CLUB</span>
+            <span class="art-leaf leaf-one"></span><span class="art-leaf leaf-two"></span>
+          </div>
+        </div>
+
+        <div class="feature-strip">
+          <div><span class="feature-number">01</span><span><b>Pesan dahulu</b><small>Pilih menu dan waktu ambil</small></span></div>
+          <div><span class="feature-number">02</span><span><b>Pantau status</b><small>Pesanan tercatat rapi</small></span></div>
+          <div><span class="feature-number">03</span><span><b>Info yang relevan</b><small>Promo hanya dengan izinmu</small></span></div>
+        </div>
+
+        <section id="auth-section" class="auth-section">
+          <div class="section-heading">
+            <p class="eyebrow">MULAI DI SINI</p>
+            <h2>Selamat datang di SUNA.</h2>
+            <p>Masuk untuk membuat pre-order, atau daftar sebagai pelanggan baru.</p>
+          </div>
+          <div class="auth-card">
+            <div class="auth-tabs" role="tablist" aria-label="Masuk atau daftar">
+              <button class="auth-tab active" data-auth="login" role="tab" aria-selected="true">Masuk</button>
+              <button class="auth-tab" data-auth="signup" role="tab" aria-selected="false">Daftar</button>
+            </div>
+            <form id="login-form" class="auth-form">
+              <label>Email<input name="email" type="email" autocomplete="email" placeholder="nama@email.com" required></label>
+              <label>Kata sandi<input name="password" type="password" autocomplete="current-password" minlength="8" placeholder="Minimal 8 karakter" required></label>
+              <button class="button button-dark button-wide" type="submit">Masuk ke akun <span>→</span></button>
+            </form>
+            <form id="signup-form" class="auth-form" hidden>
+              <label>Nama lengkap<input name="full_name" type="text" autocomplete="name" maxlength="100" placeholder="Nama kamu" required></label>
+              <label>Nomor WhatsApp<input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+62 812 3456 7890" required></label>
+              <label>Email<input name="email" type="email" autocomplete="email" placeholder="nama@email.com" required></label>
+              <label>Kata sandi<input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="Minimal 8 karakter" required></label>
+              <label class="checkbox-label"><input name="whatsapp_consent" type="checkbox"><span>Saya bersedia menerima promo SUNA melalui WhatsApp. Persetujuan ini opsional dan bisa dicabut kapan saja.</span></label>
+              <button class="button button-dark button-wide" type="submit">Buat akun <span>→</span></button>
+            </form>
+            <p id="auth-feedback" class="form-feedback" aria-live="polite"></p>
+            <p class="form-note">Informasi pelanggan adalah data simulasi; jangan gunakan data pelanggan nyata untuk demo.</p>
+          </div>
+        </section>
+      </section>
+
+      <section id="preorder-view" class="view page-view" hidden>
+        <div class="page-heading">
+          <p class="eyebrow">PESANAN PELANGGAN</p>
+          <h1>Pre-order SUNA</h1>
+          <p>Pilih menu dan waktu pengambilan. Pesanan akan tersimpan di akunmu.</p>
+        </div>
+        <div class="content-grid preorder-grid">
+          <section class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">01 / MENU</p><h2>Pilih favoritmu</h2></div><button id="reload-menu" class="text-button">Muat ulang ↻</button></div>
+            <div id="menu-list" class="menu-list"><p class="muted">Memuat menu...</p></div>
+          </section>
+          <section class="panel order-panel">
+            <p class="eyebrow">02 / DETAIL PESANAN</p>
+            <h2>Atur pengambilan</h2>
+            <div id="cart-summary" class="cart-summary"><p class="muted">Belum ada menu dipilih.</p></div>
+            <p id="preorder-access-notice" class="access-notice">Masuk atau daftar terlebih dahulu untuk melanjutkan pre-order.</p>
+            <button id="preorder-login-button" class="button button-ghost button-wide">Masuk / daftar</button>
+            <form id="preorder-form">
+              <label>Waktu pengambilan<input name="pickup_at" type="datetime-local" required></label>
+              <label>Catatan untuk SUNA <span class="optional">(opsional)</span><textarea name="notes" rows="3" maxlength="500" placeholder="Contoh: tanpa sedotan"></textarea></label>
+              <button class="button button-dark button-wide" type="submit">Kirim pre-order <span>→</span></button>
+            </form>
+            <p id="preorder-feedback" class="form-feedback" aria-live="polite"></p>
+            <p class="form-note">Status pesanan bisa dilihat pada menu Pesanan setelah masuk.</p>
+          </section>
+        </div>
+      </section>
+
+      <section id="orders-view" class="view page-view" hidden>
+        <div class="page-heading">
+          <p class="eyebrow">DASHBOARD ADMIN</p>
+          <h1>Kelola pre-order</h1>
+          <p>Perbarui status pesanan. Notifikasi WhatsApp membutuhkan template resmi yang sudah disetujui.</p>
+        </div>
+        <div id="orders-list" class="orders-list"><p class="muted">Memuat pesanan...</p></div>
+        <p id="orders-feedback" class="form-feedback" aria-live="polite"></p>
+      </section>
+
+      <section id="broadcast-view" class="view page-view" hidden>
+        <div class="page-heading">
+          <p class="eyebrow">DASHBOARD ADMIN</p>
+          <h1>Broadcast promosi</h1>
+          <p>Kirim template WhatsApp yang disetujui hanya kepada pelanggan yang memberi persetujuan promo.</p>
+        </div>
+        <div class="content-grid broadcast-grid">
+          <section class="panel">
+            <p class="eyebrow">KAMPANYE BARU</p>
+            <h2>Siapkan pesan</h2>
+            <p id="broadcast-access-notice" class="access-notice">Masuk menggunakan akun admin untuk membuat dan melihat kampanye.</p>
+            <form id="broadcast-form">
+              <label>Nama template WhatsApp<input name="template_name" type="text" maxlength="100" placeholder="contoh: suna_promo_libur" required></label>
+              <label>Bahasa template<input name="template_language" type="text" maxlength="20" value="id" required></label>
+              <label>Parameter template <span class="optional">(opsional, pisahkan dengan koma sesuai urutan template)</span><input name="template_parameters" type="text" maxlength="500" placeholder="Nama pelanggan, promo, tanggal"></label>
+              <label class="checkbox-label"><input name="confirm_optin" type="checkbox" required><span>Saya memastikan konten sesuai template yang disetujui dan penerima sudah memberi persetujuan menerima promo.</span></label>
+              <button class="button button-dark button-wide" type="submit">Buat & kirim batch <span>→</span></button>
+            </form>
+            <p id="broadcast-feedback" class="form-feedback" aria-live="polite"></p>
+            <p class="form-note">Pengiriman berjalan melalui Supabase Edge Function. Maksimal 50 penerima per batch; jalankan batch berikutnya sampai selesai. API key WhatsApp tidak disimpan di browser.</p>
+          </section>
+          <section class="panel campaign-panel">
+            <div class="panel-heading"><div><p class="eyebrow">RIWAYAT</p><h2>Kampanye terakhir</h2></div><button id="reload-campaigns" class="text-button">Muat ulang ↻</button></div>
+            <div id="campaign-list" class="campaign-list"><p class="muted">Masuk sebagai admin untuk melihat kampanye.</p></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer><img class="footer-logo" src="src/assets/images/logo-suna.png" alt=""><span>SUNA HUB PELANGGAN</span><span class="footer-note">Prototipe CRM · Data simulasi</span></footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
