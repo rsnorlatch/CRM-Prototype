@@ -1,0 +1,40 @@
+<?php
+
+namespace src\adapter\user_repository;
+
+use src\entity\User;
+
+class FakeUserRepository implements UserRepositoryInterface
+{
+    private array $users;
+
+    public function __construct()
+    {
+        $this->users = [];
+    }
+
+    public function getAll()
+    {
+        return $this->users;
+    }
+
+    public function insert(User $user)
+    {
+        array_push(
+            $this->users,
+            $user->withId(count($this->users) + 1)
+        );
+    }
+
+    public function getByUsername(string $username)
+    {
+        $all_user = $this->getAll();
+
+        /** @var User $selected_user */
+        $selected_user = array_filter($all_user, function (User $user) use ($username) {
+            return $user->username == $username;
+        })[0];
+
+        return $selected_user;
+    }
+}

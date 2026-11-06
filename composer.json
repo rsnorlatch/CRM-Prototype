@@ -3,8 +3,19 @@
     "type": "project",
     "autoload": {
         "psr-4": {
+<<<<<<< HEAD
             "Gdm\\CrmPrototype\\": "src/"
         }
     },
     "require": {}
+=======
+            "Gdm\\CrmPrototype\\": "src/",
+            "src\\": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^13.4"
+    }
+>>>>>>> e367da03842d43393a0aacc9fc3c94a48b45e465
 }
