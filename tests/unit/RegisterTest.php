@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 use PHPUnit\Framework\TestCase;
 use src\adapter\user_repository\FakeUserRepository;
 use src\adapter\user_session\FakeUserSession;
@@ -14,7 +12,8 @@ final class RegisterTest extends TestCase
 
     private AuthService $service;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         $this->user_repo = new FakeUserRepository();
         $this->session = new FakeUserSession();
 

@@ -33,6 +33,16 @@ class FeedbackService
         $this->feedback->update($selected_feedback);
     }
 
+    public function makrFeedbackAsProcessed(int $id)
+    {
+        if ($this->session->getCurrentUser() == null) return;
+
+        $selected_feedback = $this->feedback->getById($id);
+        $selected_feedback->status = FeedbackStatus::Processed;
+
+        $this->feedback->update($selected_feedback);
+    }
+
     public function setPIC(int $id, string $PIC)
     {
         if ($this->session->getCurrentUser() == null) return;
