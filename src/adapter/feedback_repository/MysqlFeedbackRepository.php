@@ -55,7 +55,7 @@ class MysqlFeedbackRepository implements FeedbackRepositoryInterface
         $all_mapped_feedback = [];
 
         while ($row = $result->fetch_assoc()) {
-            $mapped_feedback = new Feedback($row["feedback"], FeedbackType::fromString($row["type"]))
+            $mapped_feedback = (new Feedback($row["feedback"], FeedbackType::fromString($row["type"])))
                 ->withId($row["id"])
                 ->withPersonInCharge($row["person_in_charge"] ?? "")
                 ->withPhoneNumber($row["phone_number"] ?? "")
@@ -82,7 +82,7 @@ class MysqlFeedbackRepository implements FeedbackRepositoryInterface
             return null;
         }
 
-        $mapped_feedback = new Feedback($row["feedback"], FeedbackType::fromString($row["type"]))
+        $mapped_feedback = (new Feedback($row["feedback"], FeedbackType::fromString($row["type"])))
             ->withId($row["id"])
             ->withPersonInCharge($row["person_in_charge"] ?? "")
             ->withPhoneNumber($row["phone_number"] ?? "")
