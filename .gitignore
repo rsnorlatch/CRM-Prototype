@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 /vendor/
 /.env
 .DS_Store
 Thumbs.db
-=======
-vendor/
 composer.lock
->>>>>>> e367da03842d43393a0aacc9fc3c94a48b45e465
