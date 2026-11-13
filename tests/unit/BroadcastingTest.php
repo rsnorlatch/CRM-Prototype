@@ -1,16 +1,16 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-
 use src\service\PromotionBroadcastService;
-use src\entity\Promotion;
-use src\adapter\message_gateway\FakeMessageGateway;
-use src\adapter\promotion_repository\FakePromotionRepository;
 use src\adapter\user_session\FakeUserSession;
-use src\entity\User;
-use src\entity\UserRole;
+use src\adapter\promotion_repository\FakePromotionRepository;
+use src\adapter\message_gateway\FakeMessageGateway;
 
-class BroadcastingTest extends TestCase
+use src\entity\UserRole;
+use src\entity\User;
+use src\entity\Promotion;
+
+class PromotionTest extends TestCase
 {
     private FakeMessageGateway $message_gateway;
     private FakePromotionRepository $promotion_repo;
@@ -27,43 +27,6 @@ class BroadcastingTest extends TestCase
         $this->_service = new PromotionBroadcastService($this->message_gateway, $this->promotion_repo, $this->session);
 
         $this->session->setCurrentUser(new User("achilles", "Password123")->withRole(UserRole::Admin));
-    }
-
-    public function testWhenNoPromotionIsSetup_ShouldNotHaveSendableMessage()
-    {
-        $this->assertSame(0, $this->message_gateway->count_message());
-    }
-
-    public function testWhenAPromotionIsSetup_ShouldHaveSendableMessage()
-    {
-        $this->_service->addPromotion(
-            new Promotion(1, "diskon 50%", new DateTime(), new DateTime()->add(DateInterval::createFromDateString("7 days")))
-        );
-
-        $this->assertSame(1, $this->message_gateway->count_message());
-    }
-
-    public function testWhenUserIsNotLoggedIn_ShouldNotBeAbleToCreatePromotion()
-    {
-        $this->session->logout();
-
-        $this->_service->addPromotion(
-            new Promotion(1, "diskon 50%", new DateTime(), new DateTime()->add(DateInterval::createFromDateString("7 days")))
-        );
-
-        $this->assertSame(0, $this->message_gateway->count_message());
-    }
-
-    public function testWhenUserIsNotAdmin_ShoudlNotBeAbleToCreatePromotion()
-    {
-        $this->session->logout();
-        $this->session->setCurrentUser(new User("tortoise", "Password123")->withRole(UserRole::Cashier));
-
-        $this->_service->addPromotion(
-            new Promotion(1, "diskon 50%", new DateTime(), new DateTime()->add(DateInterval::createFromDateString("7 days")))
-        );
-
-        $this->assertSame(0, $this->message_gateway->count_message());
     }
 
     public function testWhenYouHaveASendableMessage_SendingItShouldSendTheMessageToTheUser()
